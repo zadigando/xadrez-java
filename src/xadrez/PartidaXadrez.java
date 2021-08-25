@@ -24,11 +24,15 @@ public class PartidaXadrez {
 		}
 		return mat;
 	}
-
+	
+	private void botarNovaPeca(char coluna, int linha, PecaDeXadrez peca) {
+		tabuleiro.botarPeca(peca, new XadrezPosicao(coluna, linha).toPosicao());
+	}
+	
 	private void comecoDoJogo() {
-		tabuleiro.botarPeca(new Torre(tabuleiro, Cores.BRANCO), new Posicao(2, 1));
-		tabuleiro.botarPeca(new Rei(tabuleiro, Cores.PRETO), new Posicao(0, 4));
-		tabuleiro.botarPeca(new Rei(tabuleiro, Cores.BRANCO), new Posicao(7, 4));
+		botarNovaPeca('b', 6, new Torre(tabuleiro, Cores.BRANCO));
+		botarNovaPeca('e', 8, new Rei(tabuleiro, Cores.PRETO));
+		botarNovaPeca('e', 1, new Rei(tabuleiro, Cores.BRANCO));
 
 	}
 	
