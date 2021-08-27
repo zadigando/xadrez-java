@@ -22,7 +22,12 @@ public class Programa {
 				System.out.println();
 				System.out.print("Ponto de partida: ");
 				XadrezPosicao source = UI.lerXadrezPosicao(sc);
-	
+				
+				boolean[][] movimentosPossiveis = partidaXadrez.movimentosPossiveis(source);
+				UI.limparTela();
+				UI.printTabuleiro(partidaXadrez.getPecas(), movimentosPossiveis);
+				
+				
 				System.out.println();
 				System.out.print("Destino: ");
 				XadrezPosicao target = UI.lerXadrezPosicao(sc);
