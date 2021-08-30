@@ -86,7 +86,8 @@ public class PartidaXadrez {
 	}
 
 	private Peca fazerMovimento(Posicao source, Posicao target) {
-		Peca p = tabuleiro.removerPeca(source);
+		PecaDeXadrez p = (PecaDeXadrez)tabuleiro.removerPeca(source);
+		p.aumentarContadorDeMovimento();
 		Peca pecaCapturada = tabuleiro.removerPeca(target);
 		tabuleiro.botarPeca(p, target);
 		
@@ -99,7 +100,8 @@ public class PartidaXadrez {
 	}
 	
 	private void desfazerMovimento(Posicao source, Posicao target, Peca pecaCapturada) {
-		Peca p = tabuleiro.removerPeca(target);
+		PecaDeXadrez p = (PecaDeXadrez)tabuleiro.removerPeca(target);
+		p.diminuirContadorDeMovimento();
 		tabuleiro.botarPeca(p, source);
 		
 		if (pecaCapturada != null) {
@@ -194,11 +196,11 @@ public class PartidaXadrez {
 
 	private void comecoDoJogo() {
 		botarNovaPeca('h', 7, new Torre(tabuleiro, Cores.BRANCO));
-		botarNovaPeca('d', 7, new Torre(tabuleiro, Cores.BRANCO));
-		botarNovaPeca('e', 7, new Rei(tabuleiro, Cores.BRANCO));
+		botarNovaPeca('d', 1, new Torre(tabuleiro, Cores.BRANCO));
+		botarNovaPeca('e', 1, new Rei(tabuleiro, Cores.BRANCO));
 
-		botarNovaPeca('b', 7, new Torre(tabuleiro, Cores.PRETO));
-		botarNovaPeca('a', 7, new Rei(tabuleiro, Cores.PRETO));
+		botarNovaPeca('b', 8, new Torre(tabuleiro, Cores.PRETO));
+		botarNovaPeca('a', 8, new Rei(tabuleiro, Cores.PRETO));
 
 
 	}
