@@ -1,5 +1,8 @@
 package xadrez;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import tabuleiro.Peca;
 import tabuleiro.Posicao;
 import tabuleiro.Tabuleiro;
@@ -7,12 +10,27 @@ import xadrez.pecas.Rei;
 import xadrez.pecas.Torre;
 
 public class PartidaXadrez {
-
+	
+	private int turno;
+	private Cores jogadorAtual;
 	private Tabuleiro tabuleiro;
+	
+	private List<Peca> pecasNoTabuleiro = new ArrayList<>();
+	private List<Peca> pecasCapturadas = new ArrayList<>();
 
 	public PartidaXadrez() {
 		tabuleiro = new Tabuleiro(8, 8);
+		turno = 1;
+		jogadorAtual = Cores.BRANCO;
 		comecoDoJogo();
+	}
+	
+	public int getTurno() {
+		return turno;
+	}
+	
+	public Cores getJogadorAtual() {
+		return jogadorAtual;
 	}
 
 	public PecaDeXadrez[][] getPecas() {
@@ -38,6 +56,7 @@ public class PartidaXadrez {
 		validarSourcePosicao(source);
 		validarTargetPosicao(source, target);
 		Peca pecaCapturada = fazerMovimento(source, target);
+		proximoTurno();
 		return (PecaDeXadrez) pecaCapturada;
 	}
 
@@ -45,12 +64,21 @@ public class PartidaXadrez {
 		Peca p = tabuleiro.removerPeca(source);
 		Peca pecaCapturada = tabuleiro.removerPeca(target);
 		tabuleiro.botarPeca(p, target);
+		
+		if (pecaCapturada != null) {
+			pecasNoTabuleiro.remove(pecaCapturada);
+			pecasCapturadas.add(pecaCapturada);
+		}
+		
 		return pecaCapturada;
 	}
 
 	private void validarSourcePosicao(Posicao posicao) {
 		if (!tabuleiro.temUmaPeca(posicao)) {
 			throw new XadrezException("Não existe peça na posição de origem");
+		} 
+		if(jogadorAtual != ((PecaDeXadrez)tabuleiro.peca(posicao)).getCor()) {
+			throw new XadrezException("A peça escolhida não é sua.");
 		}
 		if(!tabuleiro.peca(posicao).temAlgumMovimentoPossivel()) {
 			throw new XadrezException("Não tem movimentos possiveis para a peça escolhida");
@@ -63,8 +91,15 @@ public class PartidaXadrez {
 		}
 	}
 	
+	private void proximoTurno() {
+		turno++;
+		jogadorAtual = (jogadorAtual == Cores.BRANCO) ? Cores.PRETO : Cores.BRANCO;
+	}
+	
 	private void botarNovaPeca(char coluna, int linha, PecaDeXadrez peca) {
 		tabuleiro.botarPeca(peca, new XadrezPosicao(coluna, linha).toPosicao());
+		pecasNoTabuleiro.add(peca);
+		
 	}
 
 	private void comecoDoJogo() {
