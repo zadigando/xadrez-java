@@ -19,7 +19,7 @@ public class PartidaXadrez {
 	private int turno;
 	private Cores jogadorAtual;
 	private Tabuleiro tabuleiro;
-	private boolean cheque;
+	private static boolean cheque;
 	private static boolean chequeMate;
 
 	private List<Peca> pecasNoTabuleiro = new ArrayList<>();
@@ -40,7 +40,7 @@ public class PartidaXadrez {
 		return jogadorAtual;
 	}
 
-	public boolean getCheque() {
+	public static boolean getCheque() {
 		return cheque;
 	}
 
@@ -98,6 +98,15 @@ public class PartidaXadrez {
 			pecasNoTabuleiro.remove(pecaCapturada);
 			pecasCapturadas.add(pecaCapturada);
 		}
+		
+		if (p instanceof Rei && target.getColuna() == source.getColuna() - 2 ) {
+			Posicao sourceT = new Posicao(source.getLinha(), source.getColuna() + 3);
+			Posicao targetT = new Posicao(source.getLinha(), source.getColuna() + 1);
+			PecaDeXadrez torre = (PecaDeXadrez)tabuleiro.removerPeca(targetT);
+			tabuleiro.botarPeca(torre, targetT);
+			torre.aumentarContadorDeMovimento();
+		}
+		
 
 		return pecaCapturada;
 	}
@@ -203,7 +212,7 @@ public class PartidaXadrez {
 		botarNovaPeca('b', 1, new Cavalo(tabuleiro, Cores.BRANCO));
 		botarNovaPeca('c', 1, new Bispo(tabuleiro, Cores.BRANCO));
 		botarNovaPeca('d', 1, new Rainha(tabuleiro, Cores.BRANCO));
-		botarNovaPeca('e', 1, new Rei(tabuleiro, Cores.BRANCO));
+		botarNovaPeca('e', 1, new Rei(tabuleiro, Cores.BRANCO, this));
 		botarNovaPeca('f', 1, new Bispo(tabuleiro, Cores.BRANCO));
 		botarNovaPeca('g', 1, new Cavalo(tabuleiro, Cores.BRANCO));
 		botarNovaPeca('h', 1, new Torre(tabuleiro, Cores.BRANCO));
@@ -220,7 +229,7 @@ public class PartidaXadrez {
 		botarNovaPeca('b', 8, new Cavalo(tabuleiro, Cores.PRETO));
 		botarNovaPeca('c', 8, new Bispo(tabuleiro, Cores.PRETO));
 		botarNovaPeca('d', 8, new Rainha(tabuleiro, Cores.PRETO));
-		botarNovaPeca('e', 8, new Rei(tabuleiro, Cores.PRETO));
+		botarNovaPeca('e', 8, new Rei(tabuleiro, Cores.PRETO, this));
 		botarNovaPeca('g', 8, new Cavalo(tabuleiro, Cores.PRETO));
 		botarNovaPeca('f', 8, new Bispo(tabuleiro, Cores.PRETO));
 		botarNovaPeca('h', 8, new Torre(tabuleiro, Cores.PRETO));
