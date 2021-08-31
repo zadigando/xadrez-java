@@ -10,6 +10,7 @@ import tabuleiro.Tabuleiro;
 import xadrez.pecas.Bispo;
 import xadrez.pecas.Cavalo;
 import xadrez.pecas.Peao;
+import xadrez.pecas.Rainha;
 import xadrez.pecas.Rei;
 import xadrez.pecas.Torre;
 
@@ -201,6 +202,7 @@ public class PartidaXadrez {
 		botarNovaPeca('a', 1, new Torre(tabuleiro, Cores.BRANCO));
 		botarNovaPeca('b', 1, new Cavalo(tabuleiro, Cores.BRANCO));
 		botarNovaPeca('c', 1, new Bispo(tabuleiro, Cores.BRANCO));
+		botarNovaPeca('d', 1, new Rainha(tabuleiro, Cores.BRANCO));
 		botarNovaPeca('e', 1, new Rei(tabuleiro, Cores.BRANCO));
 		botarNovaPeca('f', 1, new Bispo(tabuleiro, Cores.BRANCO));
 		botarNovaPeca('g', 1, new Cavalo(tabuleiro, Cores.BRANCO));
@@ -217,6 +219,7 @@ public class PartidaXadrez {
 		botarNovaPeca('a', 8, new Torre(tabuleiro, Cores.PRETO));
 		botarNovaPeca('b', 8, new Cavalo(tabuleiro, Cores.PRETO));
 		botarNovaPeca('c', 8, new Bispo(tabuleiro, Cores.PRETO));
+		botarNovaPeca('d', 8, new Rainha(tabuleiro, Cores.PRETO));
 		botarNovaPeca('e', 8, new Rei(tabuleiro, Cores.PRETO));
 		botarNovaPeca('g', 8, new Cavalo(tabuleiro, Cores.PRETO));
 		botarNovaPeca('f', 8, new Bispo(tabuleiro, Cores.PRETO));
