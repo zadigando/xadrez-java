@@ -3,11 +3,14 @@ package xadrez.pecas;
 import tabuleiro.Posicao;
 import tabuleiro.Tabuleiro;
 import xadrez.Cores;
+import xadrez.PartidaXadrez;
 import xadrez.PecaDeXadrez;
 
 public class Peao extends PecaDeXadrez {
+	
+	private PartidaXadrez partidaXadrez;
 
-	public Peao(Tabuleiro tabuleiro, Cores cor) {
+	public Peao(Tabuleiro tabuleiro, Cores cor,PartidaXadrez partidaXadrez) {
 		super(tabuleiro, cor);
 	}
 
